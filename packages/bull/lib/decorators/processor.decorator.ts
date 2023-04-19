@@ -11,6 +11,8 @@ export interface ProcessorOptions {
    * Specifies the lifetime of an injected Processor.
    */
   scope?: Scope;
+
+  runOnWorker?: boolean;
 }
 
 /**
