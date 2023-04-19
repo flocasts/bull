@@ -56,12 +56,18 @@ export class BullExplorer implements OnModuleInit {
     providers.forEach((wrapper: InstanceWrapper) => {
       const { instance, metatype } = wrapper;
       const isRequestScoped = !wrapper.isDependencyTreeStatic();
-      const { name: queueName } =
+      let { name: queueName, runOnWorker } =
         this.metadataAccessor.getQueueComponentMetadata(
           // NOTE: We are relying on `instance.constructor` to properly support
           // `useValue` and `useFactory` providers besides `useClass`.
           instance.constructor || metatype,
         );
+
+      runOnWorker = runOnWorker ?? false
+
+      if ((runOnWorker && process.env.IS_WORKER_PROCESS !== 'true') || (!runOnWorker && process.env.IS_WORKER_PROCESS === 'true')) {
+        return
+      }
 
       const queueToken = getQueueToken(queueName);
       const bullQueue = this.getQueue(queueToken, queueName);

@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs/bull-workspace",
+  "name": "@flocasts/bull-workspace",
   "version": "0.0.0",
   "private": true,
   "description": "Nest - modern, fast, powerful node.js web framework. Bull monorepo",
