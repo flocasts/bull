@@ -64,8 +64,9 @@ export class BullExplorer implements OnModuleInit {
         );
 
       runOnWorker = runOnWorker ?? false
+      const shouldIgnoreRunOnWorker = process.env.IGNORE_RUN_ON_WORKER === 'true'
 
-      if ((runOnWorker && process.env.IS_WORKER_PROCESS !== 'true') || (!runOnWorker && process.env.IS_WORKER_PROCESS === 'true')) {
+      if (!shouldIgnoreRunOnWorker && ((runOnWorker && process.env.IS_WORKER_PROCESS !== 'true') || (!runOnWorker && process.env.IS_WORKER_PROCESS === 'true'))) {
         return
       }
 
